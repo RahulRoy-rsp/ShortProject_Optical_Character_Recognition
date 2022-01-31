@@ -8,18 +8,18 @@ import os
 from datetime import datetime
 from textblob import TextBlob
 
+# Enter the directory where tessaract is installed in your system
 pytesseract.pytesseract.tesseract_cmd = 'C://Program Files (x86)//Tesseract-OCR//tesseract.exe'
 curr_datetime = datetime.now().strftime('_%Y-%m-%d-%H-%M-%S')
 temp_directory = "temp/"
 file_name = "OCR'ed_"
 
 
-
 def corrected_text(file):
     one = TextBlob(file)
     return str(one.correct())
 
-
+# Function to convert the original image into a grayscaled image
 def get_grayscale(image):
     return cv2.cvtColor(image, cv2.COLOR_BGR2GRAY)
 
@@ -27,7 +27,7 @@ def get_grayscale(image):
 def thresholding(image):
     return cv2.threshold(image, 0, 255, cv2.THRESH_BINARY + cv2.THRESH_OTSU)[1]
 
-
+# Function to save the image/text at a defined directory with current data and time
 def fn(saved_at):
     file_name = os.path.basename(image_file)
     splitted_path = os.path.splitext(file_name)
